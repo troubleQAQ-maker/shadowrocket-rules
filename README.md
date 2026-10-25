@@ -9,6 +9,8 @@
 ├── shadowrocket.conf                      # 主配置：LOWERTOP lazy_group 定制版
 ├── shadowrocket/
 │   └── sr_whitelist_lite_banks.conf       # 精简白名单变体（875 行）
+├── mihomo/
+│   └── mihomo-lite.yaml                   # 上款的 Mihomo 转换版 + 三件套增强规则集
 ├── oneplus-13t/
 │   └── codex-instructions.md              # 一加 13T 分阶段刷机指令（给 AI 编程助手执行）
 ├── VERSION.md                             # 版本说明与已知限制
@@ -49,6 +51,15 @@
 - 一条远程规则集：Apple News 走代理，运行时从 blackmatrix7 的仓库拉取（第三方链接，若失效可直接删除该行）
 
 **不包含：** 本文件**不含任何节点、服务器地址、订阅链接或密码**，也没有 `[Proxy]` / 策略组定义 —— 导入后需填入自己的节点，并确认 `PROXY` 策略指向自己的节点或策略组。导入方法：下载 `.conf` → Shadowrocket →「配置」→ 从文件导入（或用本仓库 raw 链接作为远程配置订阅）。
+
+## Mihomo 版：mihomo/
+
+`mihomo/mihomo-lite.yaml` 是上面精简白名单的 Mihomo（Clash Meta 内核）转换版，适用于 Clash Verge Rev、Mihomo Party 等桌面客户端，与 Shadowrocket 版同源同序：
+
+- 银行 4 条直连同样钉在最前；IP-CIDR 规则统一补 `no-resolve`（Mihomo 惯例）
+- 额外挂了三件套**远程**规则集（自动更新，不内嵌）：blackmatrix7 广告拦截（REJECT）、MetaCubeX 海外 AI 服务集（强制走代理）、MetaCubeX 中国域名集（直连兜底）；原配置的 Apple News 规则集改用同一上游的 Clash 格式版
+- 原 Shadowrocket 配置的 `[URL Rewrite]` / `[MITM]` 段在 Mihomo 无对应机制，已去除
+- 文件不含节点信息（`proxies` 为空）：导入后先添加自己的节点，`PROXY` 策略组已设 `include-all`，会自动纳入全部节点
 
 ## 一加 13T 刷机指令：oneplus-13t/
 
