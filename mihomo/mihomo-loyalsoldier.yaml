@@ -1,0 +1,262 @@
+# Mihomo 规则集配置（Loyalsoldier 规则集版，v1.2.0 / 2026-10-27）
+# 定位：与 mihomo-lite.yaml（白名单版）流派相反——默认走代理，
+#       靠 Loyalsoldier 规则集把国内域名 / IP 与局域网摘出来直连。
+# 来源：策略组 / 规则 / 规则集骨架基于 Loyalsoldier/clash-rules 模板整理。
+# 入仓改动（相对原始模板）：
+#   - 删除模板自带的 selfapp / selfdomain 两条规则集（指向他人 yaleiyale/yahosting
+#     的自用规则），在规则段留注释占位，有自己的 self 规则时替换路径即可
+#   - AI 规则集由 Loyalsoldier openai.txt（仅 OpenAI 一家）换为与 lite 版同款的
+#     MetaCubeX category-ai-!cn（覆盖主流海外 AI 服务）；手工补的
+#     anthropic / claude.ai / oaistatic 等后缀规则保留作补充
+#   - 补齐可直接运行的骨架（端口 / DNS / TUN），与 mihomo-lite.yaml 同款
+#   - 规则开头两条为 TUN 适配：NTP 直连、UDP 443（QUIC）全局 REJECT 强制降级 TCP，
+#     注意国内服务的 QUIC 也会被一并降级，一般无感
+# 本文件不含任何节点信息：proxies 为空，请先在客户端里添加自己的节点，
+#   🎯 手动选择组已设 include-all，会自动纳入全部节点
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
+
+# 在这里添加你自己的节点（或在客户端界面中添加，效果相同）。
+# 示例（请替换为真实参数，勿把真实节点信息提交到公开仓库）：
+# proxies:
+#   - name: my-vps
+#     type: vless
+#     server: example.com
+#     port: 443
+#     uuid: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+#     tls: true
+proxies: []
+
+# 1. 策略组配置
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - 🤖 自动选择
+      - 🎯 手动选择
+      - DIRECT
+
+  - name: 🎯 手动选择
+    type: select
+    include-all: true
+
+  - name: 🤖 自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    include-all: true
+
+  - name: 🧠 人工智能
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🎯 手动选择
+
+  - name: 📲 社交媒体
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - 🎯 手动选择
+
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+
+  - name: ⛔ 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - DIRECT
+
+# 2. 规则集引用
+rule-providers:
+  reject:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: ./ruleset/reject.yaml
+    interval: 86400
+
+  # 入仓改动：原模板此处为 Loyalsoldier openai.txt（仅 OpenAI），
+  # 已换为 MetaCubeX category-ai-!cn，与 mihomo-lite.yaml 同款
+  ai:
+    type: http
+    behavior: domain
+    format: mrs
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs
+    path: ./ruleset/ai-services.mrs
+    interval: 86400
+
+  icloud:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+
+  apple:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: ./ruleset/apple.yaml
+    interval: 86400
+
+  google:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt"
+    path: ./ruleset/google.yaml
+    interval: 86400
+
+  proxy:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt"
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+
+  direct:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/direct.yaml
+    interval: 86400
+
+  private:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    path: ./ruleset/private.yaml
+    interval: 86400
+
+  gfw:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./ruleset/gfw.yaml
+    interval: 86400
+
+  greatfire:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/greatfire.txt"
+    path: ./ruleset/greatfire.yaml
+    interval: 86400
+
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+
+  cncidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+
+  lancidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+
+  applications:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
+    path: ./ruleset/applications.yaml
+    interval: 86400
+
+  # 入仓改动：原模板的 selfdomain / selfapp 两条规则集已删除
+  # （指向他人 yaleiyale/yahosting 仓库的自用规则）。
+  # 有自己的 self 规则集时，在此处按相同格式加回，并在下方规则段恢复对应 RULE-SET 行。
+
+# 3. 分流规则（已添加 TUN 适配并用引号保护）
+rules:
+  # NTP 系统时间校准直连
+  - "DST-PORT,123,DIRECT"
+  # 拦截海外 UDP 443 (QUIC) 强制降级走 TCP
+  - "AND,((DST-PORT,443),(NETWORK,UDP)),REJECT"
+
+  # 本地控制面板与 P2P 下载直连
+  - "DOMAIN,clash.razord.top,DIRECT"
+  - "DOMAIN,yacd.haishan.me,DIRECT"
+  - "RULE-SET,applications,DIRECT"
+
+  # 本地局域网私有地址
+  - "RULE-SET,private,DIRECT"
+  - "RULE-SET,lancidr,DIRECT,no-resolve"
+  - "GEOIP,LAN,DIRECT,no-resolve"
+
+  # 广告拦截
+  - "RULE-SET,reject,⛔ 广告拦截"
+
+  # 私有规则集（入仓改动：原模板的 selfapp / selfdomain 已删除，见上方 rule-providers 注释）
+
+  # AI 服务分流（ChatGPT, Claude, Gemini）
+  - "RULE-SET,ai,🧠 人工智能"
+  - "DOMAIN-SUFFIX,oaistatic.com,🧠 人工智能"
+  - "DOMAIN-SUFFIX,oaiusercontent.com,🧠 人工智能"
+  - "DOMAIN-SUFFIX,anthropic.com,🧠 人工智能"
+  - "DOMAIN-SUFFIX,claude.ai,🧠 人工智能"
+
+  # Spark 邮件客户端
+  - "DOMAIN-SUFFIX,hockeyapp.net,🚀 节点选择"
+  - "DOMAIN-SUFFIX,firebaseio.com,🚀 节点选择"
+  - "DOMAIN,usage.readdle.com,🚀 节点选择"
+  - "DOMAIN,api.amplitude.com,🚀 节点选择"
+  - "DOMAIN,app.smartmailcloud.com,🚀 节点选择"
+
+  # Telegram
+  - "RULE-SET,telegramcidr,📲 社交媒体,no-resolve"
+
+  # 常用海外代理规则集
+  - "RULE-SET,google,🚀 节点选择"
+  - "RULE-SET,gfw,🚀 节点选择"
+  - "RULE-SET,greatfire,🚀 节点选择"
+  - "RULE-SET,proxy,🚀 节点选择"
+
+  # 苹果服务
+  - "RULE-SET,icloud,🍎 苹果服务"
+  - "RULE-SET,apple,🍎 苹果服务"
+
+  # 国内直连域名与 IP
+  - "RULE-SET,direct,DIRECT"
+  - "RULE-SET,cncidr,DIRECT,no-resolve"
+  - "GEOIP,CN,DIRECT,no-resolve"
+
+  # 兜底走代理
+  - "MATCH,🐟 漏网之鱼"

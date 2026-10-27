@@ -1,5 +1,10 @@
 # 更新记录
 
+## [1.2.0] - 2026-10-27
+
+- 新增 Mihomo 规则集版配置 `mihomo/mihomo-loyalsoldier.yaml`：与白名单版流派相反（默认代理，靠 Loyalsoldier 规则集摘国内直连），基于 Loyalsoldier/clash-rules 模板整理，含 8 个策略组、14 个远程规则集、30 条分流规则
+- 入仓改动：删除模板自带的 selfapp / selfdomain 规则集（指向他人仓库的自用规则）；AI 规则集由 Loyalsoldier openai.txt 换为 MetaCubeX category-ai-!cn（与 lite 版同款）；补齐与 lite 版同款的端口 / DNS / TUN 骨架，文件不含节点信息
+
 ## [1.1.0] - 2026-10-25
 
 - 新增 Mihomo 版配置 `mihomo/mihomo-lite.yaml`：由 Shadowrocket 精简白名单逐条转换（755 条域名规则、24 条 IP-CIDR、2 条关键词，域名集合与源文件完全一致），银行直连 4 条置顶

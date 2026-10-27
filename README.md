@@ -10,7 +10,8 @@
 ├── shadowrocket/
 │   └── sr_whitelist_lite_banks.conf       # 精简白名单变体（875 行）
 ├── mihomo/
-│   └── mihomo-lite.yaml                   # 上款的 Mihomo 转换版 + 三件套增强规则集
+│   ├── mihomo-lite.yaml                   # 上款的 Mihomo 转换版 + 三件套增强规则集
+│   └── mihomo-loyalsoldier.yaml           # 规则集版：Loyalsoldier 模板整理（默认代理）
 ├── oneplus-13t/
 │   └── codex-instructions.md              # 一加 13T 分阶段刷机指令（给 AI 编程助手执行）
 ├── VERSION.md                             # 版本说明与已知限制
@@ -61,6 +62,16 @@
 - 原 Shadowrocket 配置的 `[URL Rewrite]` / `[MITM]` 段在 Mihomo 无对应机制，已去除
 - 文件不含节点信息（`proxies` 为空）：导入后先添加自己的节点，`PROXY` 策略组已设 `include-all`，会自动纳入全部节点
 
+## Mihomo 规则集版：mihomo/mihomo-loyalsoldier.yaml
+
+与 lite 版流派相反的另一套 Mihomo 配置：默认走代理，靠 Loyalsoldier 规则集把国内域名 / IP 与局域网摘出来直连，适合想要「名单外全代理」的用法。基于 Loyalsoldier/clash-rules 模板整理，入仓时做了三处改动：
+
+- 删除模板自带的 selfapp / selfdomain 规则集（指向他人仓库的自用规则），仅留注释占位
+- AI 规则集由 Loyalsoldier 的 openai.txt（仅 OpenAI）换为 MetaCubeX category-ai-!cn，与 lite 版同款；手工补充的 anthropic / claude.ai 等后缀规则保留
+- 补齐与 lite 版同款的运行骨架（端口 / DNS / TUN）；文件不含节点信息（`proxies` 为空），🎯 手动选择组已设 `include-all`，会自动纳入全部节点
+
+注意规则开头的 QUIC 拦截：UDP 443 全局 REJECT、强制降级 TCP，国内服务的 QUIC 也会被一并降级，一般无感。
+
 ## 一加 13T 刷机指令：oneplus-13t/
 
 一份给 AI 编程助手（Codex）执行的**分阶段**刷机指令 v2：先用 koaaN 脚本把一加 13T 国行版（PKX110）转换到一加 13s 氧 OS 打底并验证，再刷入 LineageOS GSI（bgN 带 GApps 变体）。全程设有三个确认点和明确的停机条件，禁止回锁 Bootloader。
@@ -82,6 +93,7 @@
 - 主配置基于 **LOWERTOP** 的 [Shadowrocket](https://github.com/LOWERTOP/Shadowrocket) lazy_group.conf 定制（详见上文「来源」）
 - 精简白名单核心来自 **Johnshall** 的 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever)（作者 Moshel 与 Johnshall），使用的是其无广告白名单（2026-10-19 构建）
 - Apple News 远程规则集来自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
+- Mihomo 规则集版的规则集来自 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules)，AI 规则集来自 MetaCubeX meta-rules-dat
 - 刷机流程参考 DroidWin 的 OnePlus 13T → 13S 转换教程、koaaN 发布的转换脚本，以及 AndyYan / TrebleDroid 的 LineageOS GSI 发布
 
 本仓库的增量工作是：配置定制、精简拼装、香港银行直连段与刷机指令的整理。 上游内容仍归其原作者所有，遵循其各自的授权与署名要求。
