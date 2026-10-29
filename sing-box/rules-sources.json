@@ -1,0 +1,21 @@
+{
+  "snapshot_date": "2026-10-29",
+  "tool": "sing-box 1.14.4 rule-set decompile",
+  "rules": [
+    {
+      "tag": "geosite-cn",
+      "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
+      "sha256": "68f21a4135d6e76f74d2ed2d102395520480d8d0d5677d05e7e1da0899955b9e"
+    },
+    {
+      "tag": "geosite-category-ads-all",
+      "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
+      "sha256": "54ef3a555666779d0083a3921f4b6534898088b2d63846f3ec57c43a5412a86c"
+    },
+    {
+      "tag": "geoip-cn",
+      "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+      "sha256": "81ada5cafd9d831adc48776f29cdfe55c9713d9287caeef9de925ef30f66cce4"
+    }
+  ]
+}
