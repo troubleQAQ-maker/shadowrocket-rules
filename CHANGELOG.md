@@ -1,5 +1,10 @@
 # 更新记录
 
+## [1.3.0] - 2026-10-29
+
+- 新增 sing-box 版配置 `sing-box/sing-box-mac.json`：macOS 模板，与规则集版同流派（默认代理 + SagerNet 官方 geosite-cn / geoip-cn 规则集摘国内直连），DNS 国外 DoT 经代理 / 国内 DoH3 直连 / 广告双层拦截，TUN + mixed 双入站
+- 节点为占位模板（VLESS + Reality + Vision 参数位，server / uuid / SNI / 公钥 / short_id 均为占位符），不含任何真实节点信息；未内置香港银行 / 券商直连规则（与仓库其他配置的已知差异，见 VERSION.md）
+
 ## [1.2.0] - 2026-10-27
 
 - 新增 Mihomo 规则集版配置 `mihomo/mihomo-loyalsoldier.yaml`：与白名单版流派相反（默认代理，靠 Loyalsoldier 规则集摘国内直连），基于 Loyalsoldier/clash-rules 模板整理，含 8 个策略组、14 个远程规则集、30 条分流规则

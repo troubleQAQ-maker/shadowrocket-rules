@@ -1,6 +1,6 @@
 # Shadowrocket 分流配置 & 个人工具箱
 
-自用 Shadowrocket 分流配置的公开快照（基于 LOWERTOP/Shadowrocket 的 lazy_group.conf 定制），外加一套精简白名单规则和一份一加 13T 刷机指令。方便换机、分享与长期维护。
+自用 Shadowrocket 分流配置的公开快照（基于 LOWERTOP/Shadowrocket 的 lazy_group.conf 定制），外加精简白名单、Mihomo 与 sing-box 版本和一份一加 13T 刷机指令。方便换机、分享与长期维护。
 
 ## 内容一览
 
@@ -12,6 +12,8 @@
 ├── mihomo/
 │   ├── mihomo-lite.yaml                   # 上款的 Mihomo 转换版 + 三件套增强规则集
 │   └── mihomo-loyalsoldier.yaml           # 规则集版：Loyalsoldier 模板整理（默认代理）
+├── sing-box/
+│   └── sing-box-mac.json                  # macOS sing-box 模板（节点为占位符）
 ├── oneplus-13t/
 │   └── codex-instructions.md              # 一加 13T 分阶段刷机指令（给 AI 编程助手执行）
 ├── VERSION.md                             # 版本说明与已知限制
@@ -72,6 +74,15 @@
 
 注意规则开头的 QUIC 拦截：UDP 443 全局 REJECT、强制降级 TCP，国内服务的 QUIC 也会被一并降级，一般无感。
 
+## sing-box 版：sing-box/
+
+`sing-box/sing-box-mac.json` 是给 macOS 的 sing-box 配置模板，与规则集版同流派：默认走代理，靠 SagerNet 官方 geosite-cn / geoip-cn 规则集把国内流量摘出来直连，广告域名在 DNS 与路由双层拦截。
+
+- DNS：国外域名走 1.1.1.1 DoT（经代理），国内走阿里 DoH3 直连，广告域名返回空应答
+- 入站：TUN（system 栈、strict_route）+ 127.0.0.1:7890 mixed
+- 节点为占位模板：`my-node-1` 是 VLESS + Reality + Vision 的参数位（server / uuid / SNI / 公钥 / short_id 全是占位符），填入自己的自建节点后才能使用；selector 默认走 urltest 自动测速组
+- 与仓库其他配置的差异：未内置香港银行 / 券商直连规则，相关域名默认走代理
+
 ## 一加 13T 刷机指令：oneplus-13t/
 
 一份给 AI 编程助手（Codex）执行的**分阶段**刷机指令 v2：先用 koaaN 脚本把一加 13T 国行版（PKX110）转换到一加 13s 氧 OS 打底并验证，再刷入 LineageOS GSI（bgN 带 GApps 变体）。全程设有三个确认点和明确的停机条件，禁止回锁 Bootloader。
@@ -94,6 +105,7 @@
 - 精简白名单核心来自 **Johnshall** 的 [Shadowrocket-ADBlock-Rules-Forever](https://github.com/Johnshall/Shadowrocket-ADBlock-Rules-Forever)（作者 Moshel 与 Johnshall），使用的是其无广告白名单（2026-10-19 构建）
 - Apple News 远程规则集来自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
 - Mihomo 规则集版的规则集来自 [Loyalsoldier/clash-rules](https://github.com/Loyalsoldier/clash-rules)，AI 规则集来自 MetaCubeX meta-rules-dat
+- sing-box 版规则集来自 SagerNet 官方 [sing-geosite](https://github.com/SagerNet/sing-geosite) / [sing-geoip](https://github.com/SagerNet/sing-geoip) 仓库
 - 刷机流程参考 DroidWin 的 OnePlus 13T → 13S 转换教程、koaaN 发布的转换脚本，以及 AndyYan / TrebleDroid 的 LineageOS GSI 发布
 
 本仓库的增量工作是：配置定制、精简拼装、香港银行直连段与刷机指令的整理。 上游内容仍归其原作者所有，遵循其各自的授权与署名要求。
