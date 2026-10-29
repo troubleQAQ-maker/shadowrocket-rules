@@ -27,3 +27,8 @@ under their original authors' terms and attribution (see "署名与来源" in
 README.md), including the Shadowrocket whitelist rule set by Johnshall /
 Moshel and the Apple News rule set by blackmatrix7. The MIT license above
 applies to this repository's own original content.
+
+The embedded sing-box rule snapshots originate from SagerNet/sing-geosite and
+SagerNet/sing-geoip, licensed under GPL-3.0-or-later. See sing-box/README.md
+and the LICENSE-sing-* notices. These embedded portions are not relicensed
+under the MIT license above.

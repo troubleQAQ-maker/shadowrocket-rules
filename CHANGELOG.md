@@ -1,5 +1,11 @@
 # 更新记录
 
+## [1.3.1] - 2026-10-29
+
+- 新增 `sing-box/sing-box-mac-vless-inline.json`：基于实际排障后的 VLESS 配置脱敏，保留国内/局域网直连与广告拦截，其他走代理；真实节点和订阅信息均不入仓。
+- 内置三个官方规则快照，避免启动下载失败；移除自动测速，改用手动单 VLESS 节点，mixed 端口为 17890。
+- 新增导入说明、验证范围及规则 SHA-256 来源清单；通过 sing-box 1.14.4 配置检查。旧模板保留。
+
 ## [1.3.0] - 2026-10-29
 
 - 新增 sing-box 版配置 `sing-box/sing-box-mac.json`：macOS 模板，与规则集版同流派（默认代理 + SagerNet 官方 geosite-cn / geoip-cn 规则集摘国内直连），DNS 国外 DoT 经代理 / 国内 DoH3 直连 / 广告双层拦截，TUN + mixed 双入站

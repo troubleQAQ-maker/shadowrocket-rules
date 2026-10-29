@@ -13,7 +13,9 @@
 │   ├── mihomo-lite.yaml                   # 上款的 Mihomo 转换版 + 三件套增强规则集
 │   └── mihomo-loyalsoldier.yaml           # 规则集版：Loyalsoldier 模板整理（默认代理）
 ├── sing-box/
-│   └── sing-box-mac.json                  # macOS sing-box 模板（节点为占位符）
+│   ├── sing-box-mac.json                  # 旧版 macOS 模板（节点为占位符）
+│   ├── sing-box-mac-vless-inline.json     # VLESS 修复版：内置规则、无自动测速
+│   └── README.md                         # 新版参数填写、导入与来源说明
 ├── oneplus-13t/
 │   └── codex-instructions.md              # 一加 13T 分阶段刷机指令（给 AI 编程助手执行）
 ├── VERSION.md                             # 版本说明与已知限制
@@ -75,6 +77,8 @@
 注意规则开头的 QUIC 拦截：UDP 443 全局 REJECT、强制降级 TCP，国内服务的 QUIC 也会被一并降级，一般无感。
 
 ## sing-box 版：sing-box/
+
+新增 [VLESS 内置规则版](sing-box/README.md)，适配 sing-box 1.14.4：国内与局域网直连、其余代理，保留广告拦截；不启用自动测速，启动无需下载规则集。公开节点均为占位参数，必须填写自己的 VLESS Reality 节点。旧模板保留如下。
 
 `sing-box/sing-box-mac.json` 是给 macOS 的 sing-box 配置模板，与规则集版同流派：默认走代理，靠 SagerNet 官方 geosite-cn / geoip-cn 规则集把国内流量摘出来直连，广告域名在 DNS 与路由双层拦截。
 

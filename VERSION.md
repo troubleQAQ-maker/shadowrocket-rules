@@ -1,6 +1,6 @@
 # 版本说明
 
-**当前版本：v1.3.0（2026-10-29）**
+**当前版本：v1.3.1（2026-10-29）**
 
 ## 组件版本
 
@@ -9,7 +9,8 @@
 | Shadowrocket 精简白名单 | 基于上游 2026-10-19 构建 | Johnshall 无广告白名单本体 + 香港银行直连 4 条，共 875 行 |
 | Mihomo 转换版 | v1.1.0 新增 | 与上同源转换 + 三件套远程规则集（广告/AI/中国域名）；需 Mihomo（Clash Meta）内核客户端 |
 | Mihomo 规则集版 | v1.2.0 新增 | Loyalsoldier 规则集模板整理：默认代理、国内直连靠规则集摘取；AI 规则集改用 MetaCubeX category-ai-!cn；需 Mihomo（Clash Meta）内核客户端 |
-| sing-box 版 | v1.3.0 新增 | macOS 配置模板：默认代理 + SagerNet 官方 geosite-cn / geoip-cn 规则集；节点参数为占位符；建议 sing-box 1.11+ |
+| sing-box VLESS 内置规则版 | v1.3.1 新增 | 通过 sing-box 1.14.4 检查；内置规则快照、无自动测速、单 VLESS Reality 占位节点；详见 sing-box/README.md |
+| sing-box 旧版 | v1.3.0 新增 | macOS 配置模板：默认代理 + SagerNet 官方 geosite-cn / geoip-cn 规则集；节点参数为占位符；建议 sing-box 1.11+ |
 | 一加 13T 刷机指令 | v2 | 分三阶段执行：只读检查 → 氧 OS 转换验证 → GSI 刷入与验收 |
 
 ## 已知限制
