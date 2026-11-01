@@ -1,5 +1,11 @@
 # 更新记录
 
+## [1.4.1] - 2026-11-01
+
+- sing-box iOS 版扩充香港金融直连规则（源自作者 Shadowrocket 主配置中捕捉的「自定义直连」段）：域名后缀由 4 条增至 15 条 — 新增中银香港（bochk.com）、腾达 gigamoney.com、长桥（longbridge.global）、盈立（lbkrs.com）、富途（futunn.com / futunn.com.hk / futunn.hk），及银行 App 配套域名 4 条（设备风控 online-metrix.net、客服 liveperson.net、数据采集 tealiumiq.com、性能监控 eum-appdynamics.com，原标注待验证、照单收录）
+- 新增精确域名直连 2 条：gigamoney.activity.wbrks.com（腾达活动服务）、guzzoni.apple.com（Siri）
+- DNS 层同步：上述金融域名指定走 dns-cn（国内 DNS）解析，与路由层直连对齐
+
 ## [1.4.0] - 2026-11-01
 
 - 新增 sing-box iOS 版配置 `sing-box/sing-box-ios.json`：iPhone 模板，按自建 VPS 的 sing-box 订阅结构整理（TUN 入站、fakeip + 国内/代理双 DNS），分流补齐至与精简白名单同口径：香港银行 / 券商域名 4 条置顶直连、MetaCubeX category-ads-all 路由 + DNS 双层 reject、category-ai-!cn 强制代理、geosite/geoip-cn 直连、final 走 selector（urltest 自动组）

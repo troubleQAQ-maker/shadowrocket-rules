@@ -38,6 +38,31 @@
         "action": "reject"
       },
       {
+        "domain": [
+          "gigamoney.activity.wbrks.com",
+          "guzzoni.apple.com"
+        ],
+        "domain_suffix": [
+          "za.group",
+          "hsbc.com.hk",
+          "antbank.hk",
+          "gigamoney.com.hk",
+          "gigamoney.com",
+          "bochk.com",
+          "longbridge.global",
+          "lbkrs.com",
+          "futunn.com",
+          "futunn.com.hk",
+          "futunn.hk",
+          "eum-appdynamics.com",
+          "tealiumiq.com",
+          "liveperson.net",
+          "online-metrix.net"
+        ],
+        "action": "route",
+        "server": "dns-cn"
+      },
+      {
         "rule_set": [
           "geosite-cn"
         ],
@@ -116,11 +141,30 @@
         "action": "hijack-dns"
       },
       {
+        "domain": [
+          "gigamoney.activity.wbrks.com",
+          "guzzoni.apple.com"
+        ],
+        "action": "route",
+        "outbound": "direct"
+      },
+      {
         "domain_suffix": [
           "za.group",
           "hsbc.com.hk",
           "antbank.hk",
-          "gigamoney.com.hk"
+          "gigamoney.com.hk",
+          "gigamoney.com",
+          "bochk.com",
+          "longbridge.global",
+          "lbkrs.com",
+          "futunn.com",
+          "futunn.com.hk",
+          "futunn.hk",
+          "eum-appdynamics.com",
+          "tealiumiq.com",
+          "liveperson.net",
+          "online-metrix.net"
         ],
         "action": "route",
         "outbound": "direct"

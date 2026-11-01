@@ -92,7 +92,7 @@
 
 - 入站 TUN + fakeip DNS 分流：国内域名走阿里 DNS 直连解析，其余走经代理的 DoH
 - 远程规则集（MetaCubeX sing 分支 .srs，运行时自动更新）：geosite/geoip-cn 直连、category-ads-all 广告双层 reject（路由 + DNS）、category-ai-!cn 强制代理
-- 香港银行 / 券商域名 4 条（众安 / 汇丰 / 蚂蚁 / 腾达）置顶直连；final 走 selector（默认 urltest 自动测速组）
+- 香港金融直连规则置顶：众安 / 汇丰 / 蚂蚁 / 中银香港 / 腾达 / 长桥 / 盈立 / 富途等域名（15 条后缀 + 2 条精确域名，含银行 App 的风控 / 客服 / 监测配套域名），且指定走国内 DNS 解析；final 走 selector（默认 urltest 自动测速组）
 - 节点为占位模板：VLESS / VMess / Hysteria2 / TUIC / AnyTLS 五协议 + 2 个 VMess argo 变体，server / uuid / 密码 / Reality 公钥等均为占位符，填入自己的自建节点后才能使用
 - 静态配置不随订阅更新：节点参数变更（尤其 argo 临时隧道域名轮换）后需手动同步本文件
 
