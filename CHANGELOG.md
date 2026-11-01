@@ -1,5 +1,11 @@
 # 更新记录
 
+## [1.4.0] - 2026-11-01
+
+- 新增 sing-box iOS 版配置 `sing-box/sing-box-ios.json`：iPhone 模板，按自建 VPS 的 sing-box 订阅结构整理（TUN 入站、fakeip + 国内/代理双 DNS），分流补齐至与精简白名单同口径：香港银行 / 券商域名 4 条置顶直连、MetaCubeX category-ads-all 路由 + DNS 双层 reject、category-ai-!cn 强制代理、geosite/geoip-cn 直连、final 走 selector（urltest 自动组）
+- 规则集全部为远程 .srs（MetaCubeX sing 分支，经 jsdelivr），客户端运行时自动更新；节点为占位符（VLESS / VMess / Hysteria2 / TUIC / AnyTLS + 2 个 VMess argo 变体），不含任何真实节点信息
+- 采用 sing-box 1.12+ 现代格式（类型化 DNS 服务器、action 式路由规则），与 mac 版的旧格式（1.11 时代写法）不通用
+
 ## [1.3.1] - 2026-10-29
 
 - 新增 `sing-box/sing-box-mac-vless-inline.json`：基于实际排障后的 VLESS 配置脱敏，保留国内/局域网直连与广告拦截，其他走代理；真实节点和订阅信息均不入仓。

@@ -1,6 +1,6 @@
 # 版本说明
 
-**当前版本：v1.3.1（2026-10-29）**
+**当前版本：v1.4.0（2026-11-01）**
 
 ## 组件版本
 
@@ -10,6 +10,7 @@
 | Mihomo 转换版 | v1.1.0 新增 | 与上同源转换 + 三件套远程规则集（广告/AI/中国域名）；需 Mihomo（Clash Meta）内核客户端 |
 | Mihomo 规则集版 | v1.2.0 新增 | Loyalsoldier 规则集模板整理：默认代理、国内直连靠规则集摘取；AI 规则集改用 MetaCubeX category-ai-!cn；需 Mihomo（Clash Meta）内核客户端 |
 | sing-box VLESS 内置规则版 | v1.3.1 新增 | 通过 sing-box 1.14.4 检查；内置规则快照、无自动测速、单 VLESS Reality 占位节点；详见 sing-box/README.md |
+| sing-box iOS 版 | v1.4.0 新增 | iPhone 配置模板：自建节点结构（5 协议 + 2 个 argo 变体）+ fakeip DNS 分流 + MetaCubeX 远程规则集（cn 直连 / 广告 reject / AI 强制代理）+ 香港银行直连 4 条置顶；节点参数为占位符；需 sing-box 1.12+ |
 | sing-box 旧版 | v1.3.0 新增 | macOS 配置模板：默认代理 + SagerNet 官方 geosite-cn / geoip-cn 规则集；节点参数为占位符；建议 sing-box 1.11+ |
 | 一加 13T 刷机指令 | v2 | 分三阶段执行：只读检查 → 氧 OS 转换验证 → GSI 刷入与验收 |
 
@@ -22,4 +23,5 @@
 - **Mihomo 版需 Meta 内核。** `.mrs` 规则集与 `include-all` 策略组是 Mihomo（Clash Meta）特性，原版 Clash 及过旧内核不支持；远程规则集依赖上游仓库可用性，客户端按天自动更新。
 - **Mihomo 规则集版默认全代理。** 与白名单版相反：名单外流量全部走「🐟 漏网之鱼」策略组；规则开头的 QUIC 拦截会把国内服务的 UDP 443 也降级为 TCP。
 - **sing-box 版为节点占位模板。** `my-node-1` 的 server / uuid / SNI / Reality 公钥与 short_id 均为占位符，未填入自建节点前不可用；入站的 `sniff_override_destination` 在 sing-box 1.11+ 已弃用（仍可解析、会产生警告）；文件含一行 `//` 注释，严格 JSON 校验可能报错，删除该行即可；未内置香港银行 / 券商直连，相关域名默认走代理。
+- **sing-box iOS 版为静态模板。** 节点参数变更后需手动同步，不随订阅自动更新（argo 临时隧道域名会轮换，失效属预期）；规则集为远程 .srs 运行时拉取（MetaCubeX sing 分支，经 jsdelivr CDN），依赖上游与 CDN 可用性；已内置香港银行 / 券商直连 4 条（与 mac 版的已知差异）。
 - **本仓库未经广泛测试。** 内容来自作者个人设备的实际使用与整理，不代表对其他设备、其他版本同样适用。

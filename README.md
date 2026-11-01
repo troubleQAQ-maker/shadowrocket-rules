@@ -15,6 +15,7 @@
 ├── sing-box/
 │   ├── sing-box-mac.json                  # 旧版 macOS 模板（节点为占位符）
 │   ├── sing-box-mac-vless-inline.json     # VLESS 修复版：内置规则、无自动测速
+│   ├── sing-box-ios.json                  # iPhone sing-box 模板（节点为占位符，1.12+ 格式）
 │   └── README.md                         # 新版参数填写、导入与来源说明
 ├── oneplus-13t/
 │   └── codex-instructions.md              # 一加 13T 分阶段刷机指令（给 AI 编程助手执行）
@@ -86,6 +87,14 @@
 - 入站：TUN（system 栈、strict_route）+ 127.0.0.1:7890 mixed
 - 节点为占位模板：`my-node-1` 是 VLESS + Reality + Vision 的参数位（server / uuid / SNI / 公钥 / short_id 全是占位符），填入自己的自建节点后才能使用；selector 默认走 urltest 自动测速组
 - 与仓库其他配置的差异：未内置香港银行 / 券商直连规则，相关域名默认走代理
+
+`sing-box/sing-box-ios.json` 是给 iPhone 的 sing-box 配置模板（sing-box 1.12+ 现代格式），按自建 VPS 订阅的结构整理，与精简白名单同口径：
+
+- 入站 TUN + fakeip DNS 分流：国内域名走阿里 DNS 直连解析，其余走经代理的 DoH
+- 远程规则集（MetaCubeX sing 分支 .srs，运行时自动更新）：geosite/geoip-cn 直连、category-ads-all 广告双层 reject（路由 + DNS）、category-ai-!cn 强制代理
+- 香港银行 / 券商域名 4 条（众安 / 汇丰 / 蚂蚁 / 腾达）置顶直连；final 走 selector（默认 urltest 自动测速组）
+- 节点为占位模板：VLESS / VMess / Hysteria2 / TUIC / AnyTLS 五协议 + 2 个 VMess argo 变体，server / uuid / 密码 / Reality 公钥等均为占位符，填入自己的自建节点后才能使用
+- 静态配置不随订阅更新：节点参数变更（尤其 argo 临时隧道域名轮换）后需手动同步本文件
 
 ## 一加 13T 刷机指令：oneplus-13t/
 
