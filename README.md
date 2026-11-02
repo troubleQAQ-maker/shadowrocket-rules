@@ -16,6 +16,7 @@
 │   ├── sing-box-mac.json                  # 旧版 macOS 模板（节点为占位符）
 │   ├── sing-box-mac-vless-inline.json     # VLESS 修复版：内置规则、无自动测速
 │   ├── sing-box-ios.json                  # iPhone sing-box 模板（节点为占位符，1.12+ 格式）
+│   ├── sing-box-ios-lite.json             # iPhone 省电版：无 argo / 无自动测速，默认固定 VLESS
 │   └── README.md                         # 新版参数填写、导入与来源说明
 ├── oneplus-13t/
 │   └── codex-instructions.md              # 一加 13T 分阶段刷机指令（给 AI 编程助手执行）
@@ -95,6 +96,8 @@
 - 香港金融直连规则置顶：众安 / 汇丰 / 蚂蚁 / 中银香港 / 腾达 / 长桥 / 盈立 / 富途等域名（15 条后缀 + 2 条精确域名，含银行 App 的风控 / 客服 / 监测配套域名），且指定走国内 DNS 解析；final 走 selector（默认 urltest 自动测速组）
 - 节点为占位模板：VLESS / VMess / Hysteria2 / TUIC / AnyTLS 五协议 + 2 个 VMess argo 变体，server / uuid / 密码 / Reality 公钥等均为占位符，填入自己的自建节点后才能使用
 - 静态配置不随订阅更新：节点参数变更（尤其 argo 临时隧道域名轮换）后需手动同步本文件
+
+`sing-box/sing-box-ios-lite.json` 是同一模板的**省电变体**：分流与 DNS 规则与上款完全一致，仅出站层精简 — 移除 2 个 argo 变体（WebSocket 长连接保活耗电）与 urltest 自动测速组（定时探测全部节点），selector 默认固定 VLESS 节点，其余四协议保留为手动切换备选。适合节点稳定、优先待机续航的场景；代价是节点故障时不会自动切换，需手动处理
 
 ## 一加 13T 刷机指令：oneplus-13t/
 

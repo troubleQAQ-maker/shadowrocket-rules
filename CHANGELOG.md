@@ -1,5 +1,10 @@
 # 更新记录
 
+## [1.5.0] - 2026-11-02
+
+- 新增 sing-box iOS 省电版 `sing-box/sing-box-ios-lite.json`：与 iOS 模板的分流 / DNS 规则完全同口径，仅精简出站层 — 移除 2 个 VMess argo 变体与 urltest 自动测速组，selector 默认固定 VLESS 节点，VMess / Hysteria2 / TUIC / AnyTLS 四协议保留为手动切换备选；源于实测原版待机耗电偏高（urltest 定时探测全部节点 + argo 隧道的 WebSocket 保活）
+- 省电版模板经 sing-box 1.14.4 `check` 校验通过；节点仍为占位符，不含任何真实节点信息
+
 ## [1.4.1] - 2026-11-01
 
 - sing-box iOS 版扩充香港金融直连规则（源自作者 Shadowrocket 主配置中捕捉的「自定义直连」段）：域名后缀由 4 条增至 15 条 — 新增中银香港（bochk.com）、腾达 gigamoney.com、长桥（longbridge.global）、盈立（lbkrs.com）、富途（futunn.com / futunn.com.hk / futunn.hk），及银行 App 配套域名 4 条（设备风控 online-metrix.net、客服 liveperson.net、数据采集 tealiumiq.com、性能监控 eum-appdynamics.com，原标注待验证、照单收录）

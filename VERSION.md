@@ -1,6 +1,6 @@
 # 版本说明
 
-**当前版本：v1.4.1（2026-11-01）**
+**当前版本：v1.5.0（2026-11-02）**
 
 ## 组件版本
 
@@ -11,6 +11,7 @@
 | Mihomo 规则集版 | v1.2.0 新增 | Loyalsoldier 规则集模板整理：默认代理、国内直连靠规则集摘取；AI 规则集改用 MetaCubeX category-ai-!cn；需 Mihomo（Clash Meta）内核客户端 |
 | sing-box VLESS 内置规则版 | v1.3.1 新增 | 通过 sing-box 1.14.4 检查；内置规则快照、无自动测速、单 VLESS Reality 占位节点；详见 sing-box/README.md |
 | sing-box iOS 版 | v1.4.0 新增 / v1.4.1 扩充 | iPhone 配置模板：自建节点结构（5 协议 + 2 个 argo 变体）+ fakeip DNS 分流 + MetaCubeX 远程规则集（cn 直连 / 广告 reject / AI 强制代理）+ 香港金融直连规则置顶（银行 / 券商域名 15 条后缀 + 2 条精确域名，金融域名指定国内 DNS 解析）；节点参数为占位符；需 sing-box 1.12+ |
+| sing-box iOS 省电版 | v1.5.0 新增 | iPhone 配置模板（省电变体）：与 iOS 版分流 / DNS 规则同口径，出站精简为 5 协议、无 argo、无自动测速，selector 默认固定 VLESS，其余协议手动切换；节点参数为占位符；需 sing-box 1.12+ |
 | sing-box 旧版 | v1.3.0 新增 | macOS 配置模板：默认代理 + SagerNet 官方 geosite-cn / geoip-cn 规则集；节点参数为占位符；建议 sing-box 1.11+ |
 | 一加 13T 刷机指令 | v2 | 分三阶段执行：只读检查 → 氧 OS 转换验证 → GSI 刷入与验收 |
 
